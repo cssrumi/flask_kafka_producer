@@ -6,12 +6,10 @@ from kafka import KafkaProducer
 class Producer:
     def __init__(self, **kwargs):
         self.kafka_param = dict()
-        # self.kafka_param['bootstrap_servers'] = ['10.111.120.132:9092']
         self.kafka_param['bootstrap_servers'] = 'localhost:9092'
 
         for key, value in kwargs.items():
             self.kafka_param[key] = value
-        print(self.kafka_param['bootstrap_servers'])
         self.producer = KafkaProducer(
             bootstrap_servers=self.kafka_param['bootstrap_servers'],
             value_serializer=lambda x: json.dumps(x).encode('utf-8'),
