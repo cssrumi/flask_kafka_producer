@@ -26,7 +26,10 @@ class Producer:
         return topic, message
 
     def _send_to_topic(self, topic, message):
-        print('message:', message, '\ttype:', type(message), '\ttopic:', topic)
+        print('message:', message,
+              '\ttype:', type(message),
+              '\ttopic:', topic,
+              '\tserver:', self.kafka_param.get('bootstrap_servers', 'localhost:9092'))
         future = self.producer.send(topic, value=message)
         result = future.get(timeout=60)
 
