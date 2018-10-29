@@ -28,9 +28,7 @@ class Producer:
         return topic, message
 
     def _send_to_topic(self, topic, message):
-        print('message:', message)
-        print('type:', type(message))
-        print('topic:', topic)
+        print('message:', message, '\ttype:', type(message), '\ttopic:', topic)
         future = self.producer.send(topic, value=message)
         result = future.get(timeout=60)
 
