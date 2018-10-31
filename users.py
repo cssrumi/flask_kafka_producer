@@ -4,6 +4,7 @@ import binascii
 import pymongo
 from datetime import datetime
 
+
 class Users:
     def __init__(self):
         self.users = self._users()
@@ -15,6 +16,12 @@ class Users:
         return False
 
     def _read_config(self, file='cfg.json'):
+        # cfg.json
+        # {
+        #     "mongodb":
+        #         {"ip": "docker-ip",
+        #          "port": 27017}
+        # }
         with open(file, 'r') as f:
             cfg = json.load(f)
             print(cfg)
