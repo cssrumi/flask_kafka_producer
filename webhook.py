@@ -10,7 +10,7 @@ auth = Authentication()
 
 def get_user(req):
     if req.json.get('user', None):
-        user = req.json['topic']
+        user = req.json['user']
         return user
     return None
 
@@ -50,7 +50,7 @@ def kafka_producer():
             return jsonify({'status': 'user is empty'}), 401
         token = auth.create_user(user)
         if token:
-            return token, 200
+            return jsonify({'token': token}), 200
         return jsonify({'status': 'username used'}), 401
     elif request.method == 'POST':
         user = get_user(request)
