@@ -22,6 +22,8 @@ class Producer:
             del message['topic']
         else:
             topic = 'test'
+        if message.get('token', None):
+            del message['token']
         # message = json.dumps(message).encode('utf-8')
         return topic, message
 

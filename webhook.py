@@ -20,7 +20,7 @@ def is_exist():
     user = get_user(request)
     if user is None:
         return jsonify({'status': 'user field is empty'}), 401
-    result = auth.is_exist(user)
+    result = auth.is_user_exist(user)
     if result is True:
         return jsonify({'status': 'user exist'}), 200
     return jsonify({'status': 'user user not exist'}), 401
@@ -61,7 +61,8 @@ def kafka_producer():
         result = auth.is_authorized(user, verify_token)
         result_dict = {
             'timeout': ({'status': 'authorisation timeout'}, 401),
-            'invalid token': ({'status': 'token invalid'}, 401)
+            'invalid token': ({'status': 'token invalid'}, 401),
+            'user not exist': ({'status:': 'user not exist'}, 401)
         }
         if result is True:
             producer.send(request.json)
