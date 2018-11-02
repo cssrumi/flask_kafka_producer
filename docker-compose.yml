@@ -1,6 +1,14 @@
 version: '3.1'
 
 services:
+  flask_kafka_producer:
+    build: .
+    ports:
+     - "5000:5000"
+    volumes:
+      - /flask_kafka_producer:/code
+  redis:
+    image: "debian:jessie-slim"
 
   mongo:
     image: mongo
