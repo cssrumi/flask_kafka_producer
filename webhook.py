@@ -14,6 +14,12 @@ def get_user(req):
         return user
     return None
 
+def get_token(req):
+    if req.json.get('token', None):
+        user = req.json['token']
+        return user
+    return None
+
 
 @app.route('/api/user/is_exist', methods=['GET'])
 def is_exist():
@@ -31,7 +37,7 @@ def is_auth():
     user = get_user(request)
     if user is None:
         return jsonify({'status': 'user is empty'}), 401
-    verify_token = request.args.get('verify_token')
+    verify_token = get_token(request)
     result = auth.is_authorized(user, verify_token)
     result_dict = {
         True: ({'status': 'authorized'}, 200),
@@ -56,7 +62,7 @@ def kafka_producer():
         user = get_user(request)
         if user is None:
             return jsonify({'status': 'user is empty'}), 401
-        verify_token = request.args.get('verify_token')
+        verify_token = get_token(request)
         # check is user authorized
         result = auth.is_authorized(user, verify_token)
         result_dict = {

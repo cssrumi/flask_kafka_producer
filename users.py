@@ -2,13 +2,15 @@ import os
 import json
 import binascii
 import pymongo
+from collections import namedtuple
 from datetime import datetime
 
 
 class Users:
     def __init__(self):
         self.cfg = self._read_config()
-        self.users = self._users()
+        self.m_cfg = self._set_mongodb_config()
+        self.users = self._set_users()
 
     def is_exist(self, user):
         if self.users.find_one({'user': user}) is not None:
@@ -18,9 +20,12 @@ class Users:
     def _read_config(self, file='cfg.json'):
         # cfg.json
         # {
-        #     "mongodb":
-        #         {"ip": "docker-ip",
-        #          "port": 27017}
+        #     "mongodb": {
+        #         "ip": "ip",
+        #         "port": port,
+        #         "user": "username",
+        #         "password": "password"
+        #     }
         # }
         try:
             with open(file, 'r') as f:
@@ -31,7 +36,7 @@ class Users:
             return cfg
         return None
 
-    def _users(self):
+    def _set_mongodb_config(self):
         m_cfg = None
         if self.cfg is not None:
             m_cfg = self.cfg.get('mongodb', None)
@@ -42,7 +47,18 @@ class Users:
             m_pass = m_cfg.get('password', 'example')
         else:
             m_ip, m_port, m_user, m_pass = 'localhost', 27017, 'root', 'example'
-        ip = 'mongodb://{}:{}@{}:{}'.format(m_user, m_pass, m_ip, m_port)
+        MongoConfig = namedtuple('m_cfg', 'm_ip, m_port, m_user, m_pass')
+        m_cfg = MongoConfig(m_ip=m_ip, m_port=m_port, m_user=m_user, m_pass=m_pass)
+        return m_cfg
+
+    def _set_users(self):
+        ip = 'mongodb://{}:{}@{}:{}'.format(
+            self.m_cfg.m_user,
+            self.m_cfg.m_pass,
+            self.m_cfg.m_ip,
+            self.m_cfg.m_port
+        )
+        print(ip)
         db_client = pymongo.MongoClient(ip)
         db = db_client.users
         collection = db.users
@@ -71,11 +87,13 @@ class Users:
 
     def update_user(self, user, token, token_datetime):
         if self.users.count_documents({'user': user}):
-            self.users.update_many({'user': user}, {'$set': {
+            self.users.update({'user': user}, {'$set': {
+                'user': user,
                 'token': token,
                 'token_datetime': token_datetime
             }})
-        return True
+            return True
+        return False
 
     def recreate(self):
         pass
