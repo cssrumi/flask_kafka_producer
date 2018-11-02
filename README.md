@@ -1,6 +1,6 @@
 # flask_kafka_producer
 On windows:
-1. To send message:
+1. To send message if token is valid (and to refresh token authentication time):
 curl -i -X POST -H "Content-Type: application/json" -d "{\\"user\\":\\"username\\",\\"token\\":\\"token\\",\\"message\\":\\"message\\"}" http://127.0.0.1:5000/api/message/producer
 
 2. To set user name and get token:
