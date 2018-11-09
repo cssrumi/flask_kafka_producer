@@ -47,7 +47,7 @@ class Users:
             m_pass = m_cfg.get('password', 'example')
         else:
             m_ip, m_port, m_user, m_pass = 'localhost', 27017, 'root', 'example'
-        MongoConfig = namedtuple('m_cfg', 'm_ip, m_port, m_user, m_pass')
+        MongoConfig = namedtuple('MongoConfig', 'm_ip, m_port, m_user, m_pass')
         m_cfg = MongoConfig(m_ip=m_ip, m_port=m_port, m_user=m_user, m_pass=m_pass)
         return m_cfg
 
