@@ -1,5 +1,5 @@
 from datetime import datetime, timedelta
-from code.users import Users
+from users import Users
 
 # in hour
 CLIENT_AUTH_TIMEOUT = 1
