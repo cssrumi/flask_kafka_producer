@@ -6,7 +6,7 @@ services:
     ports:
      - "5000:5000"
     volumes:
-      - /code:/code
+      - ./code/:/code/
   redis:
     image: "debian:jessie-slim"
 
@@ -38,7 +38,7 @@ services:
     ports:
     - "9092:9092"
     environment:
-      KAFKA_ADVERTISED_HOST_NAME: 10.111.120.19
+      KAFKA_ADVERTISED_HOST_NAME: localhost
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
     volumes:
     - /var/run/docker.sock:/var/run/docker.sock
