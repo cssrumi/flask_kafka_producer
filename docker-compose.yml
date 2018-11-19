@@ -6,7 +6,7 @@ services:
     ports:
      - "5000:5000"
     volumes:
-      - /flask_kafka_producer:/code
+      - /code:/code
   redis:
     image: "debian:jessie-slim"
 
