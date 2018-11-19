@@ -1,6 +1,6 @@
 from flask import Flask, request, abort, jsonify
-from producer import Producer
-from authentication import Authentication
+from code.producer import Producer
+from code.authentication import Authentication
 
 app = Flask(__name__)
 
