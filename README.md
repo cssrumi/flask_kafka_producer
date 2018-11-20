@@ -1,21 +1,17 @@
 # Quickguide
 
-1. Requirements
-
+1. Requirements:
 docker, docker-compose, git
 
 2. PULL git project
-
 mkdir GIT
-
 cd GIT/
-
 git clone https://github.com/cssrumi/flask_kafka_producer.git
 
 3. Settings:
+As above
 
 4. Run
-
 sudo docker-compose up -d
 
 # Dockerfile
