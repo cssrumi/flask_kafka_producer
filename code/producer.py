@@ -39,7 +39,8 @@ class Producer:
         topic, message = self._parse_json(json_dict)
         self._send_to_topic(topic, message)
 
-    def _read_config(self, file='cfg.json'):
+    @staticmethod
+    def _read_config(file='cfg.json'):
         # cfg.json
         # {
         #     "kafka": {
@@ -56,8 +57,9 @@ class Producer:
             return cfg
         return None
 
-    def bootstrap_from_cfg(self):
-        cfg = self._read_config()
+    @staticmethod
+    def bootstrap_from_cfg():
+        cfg = Producer._read_config()
         k_cfg = None
         if cfg is not None:
             k_cfg = cfg.get('kafka', None)
