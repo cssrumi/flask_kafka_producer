@@ -10,10 +10,24 @@ class Producer:
 
         for key, value in kwargs.items():
             self.kafka_param[key] = value
-        self.producer = KafkaProducer(
-            bootstrap_servers=self.kafka_param['bootstrap_servers'],
-            value_serializer=lambda x: json.dumps(x).encode('utf-8'),
-        )
+        self.producer = None
+        self._set_producer()
+
+    def _set_producer(self):
+        while not self._try_producer():
+            sleep(5)
+
+    def _try_producer(self):
+        try:
+            self.producer = KafkaProducer(
+                bootstrap_servers=self.kafka_param['bootstrap_servers'],
+                value_serializer=lambda x: json.dumps(x).encode('utf-8'),
+            )
+        except Exception as error:
+            print(error)
+            return False
+        else:
+            return True
 
     def _parse_json(self, json_dict):
         message = json_dict
