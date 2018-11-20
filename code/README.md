@@ -1,3 +1,6 @@
+# Settings :
+1. cfg.json -> set ip, port and password for mongoDB and kafka broker configuration.
+
 # flask_kafka_producer
 On windows:
 1. To send message if token is valid (and to refresh token authentication time):    
