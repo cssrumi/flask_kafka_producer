@@ -1,12 +1,12 @@
 from flask import Flask, request, abort, jsonify
 from redis import Redis
-from producer import Producer, bootstrap_from_cfg
+from producer import Producer
 from authentication import Authentication
 
 app = Flask(__name__)
 redis = Redis(host='redis', port=6379)
 
-producer = Producer(bootstrap_servers=bootstrap_from_cfg())
+producer = Producer(bootstrap_servers=Producer.bootstrap_from_cfg())
 auth = Authentication()
 
 
