@@ -38,3 +38,33 @@ class Producer:
     def send(self, json_dict):
         topic, message = self._parse_json(json_dict)
         self._send_to_topic(topic, message)
+
+    def _read_config(self, file='cfg.json'):
+        # cfg.json
+        # {
+        #     "kafka": {
+        #         "ip": "ip",
+        #         "port": port,
+        #     }
+        # }
+        try:
+            with open(file, 'r') as f:
+                cfg = json.load(f)
+        except OSError:
+            pass
+        else:
+            return cfg
+        return None
+
+    def bootstrap_from_cfg(self):
+        cfg = self._read_config()
+        k_cfg = None
+        if cfg is not None:
+            k_cfg = cfg.get('kafka', None)
+        if k_cfg is not None:
+            k_ip = k_cfg.get('ip', 'localhost')
+            k_port = k_cfg.get('port', 9092)
+        else:
+            k_ip, k_port = 'localhost', 9092
+        result = '{}:{}'.format(k_ip, k_port)
+        return result

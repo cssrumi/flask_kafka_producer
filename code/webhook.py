@@ -1,12 +1,12 @@
 from flask import Flask, request, abort, jsonify
 from redis import Redis
-from producer import Producer
+from producer import Producer, bootstrap_from_cfg
 from authentication import Authentication
 
 app = Flask(__name__)
 redis = Redis(host='redis', port=6379)
 
-producer = Producer(bootstrap_servers='192.168.0.59')
+producer = Producer(bootstrap_servers=bootstrap_from_cfg())
 auth = Authentication()
 
 
@@ -75,4 +75,4 @@ def kafka_producer():
 
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", debug=True)
+    app.run(host="0.0.0.0")

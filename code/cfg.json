@@ -1,0 +1,12 @@
+{
+  "mongodb": {
+    "ip": "192.168.0.59",
+    "port": 27017,
+    "user": "root",
+    "password": "example"
+  },
+    "kafka": {
+    "ip": "192.168.0.59",
+    "port": 9092
+  }
+}
