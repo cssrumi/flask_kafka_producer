@@ -4,23 +4,23 @@
 docker, docker-compose, git
 
 2. PULL git project
-mkdir GIT
-cd GIT/
+mkdir GIT  
+cd GIT/  
 git clone https://github.com/cssrumi/flask_kafka_producer.git
 
 3. Settings:
-As above
+As below
 
 4. Run
 sudo docker-compose up -d
 
 # Dockerfile
-If you are using proxy then add --proxy=ip:port
+If you are using proxy then add --proxy=ip:port  
 RUN pip install -r requirements.txt --proxy=ip:port
 
 # docker-compose.yml
-set IP of KAFKA_ADVERTISED_HOST_NAME in kafka service:
-KAFKA_ADVERTISED_HOST_NAME: ip_adress_of_kafka_cluster
+set IP of KAFKA_ADVERTISED_HOST_NAME in kafka service:  
+KAFKA_ADVERTISED_HOST_NAME: ip_adress_of_kafka_cluster  
 (do not use localhost)
 
 # Global proxy settings if necessary:
@@ -29,6 +29,7 @@ will be added in future...
 
 # DOCKER STUFF
 1. To build image :
+
 sudo docker-compose build
 
 2. To turn off docker:
