@@ -26,6 +26,23 @@
             
         (do not use localhost)
     
+    * code/cfg.json
+    
+        default settings:
+        
+            {
+              "mongodb": {
+                "ip": "ip_adress_of_server",
+                "port": 27017,
+                "user": "root",
+                "password": "example"
+              },
+                "kafka": {
+                "ip": "ip_adress_of_server",
+                "port": 9092
+              }
+            }
+    
     * Global proxy settings if necessary:
     
         https://docs.docker.com/config/daemon/systemd/#httphttps-proxy
