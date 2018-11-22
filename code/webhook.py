@@ -45,7 +45,7 @@ def is_auth():
 
 @app.route('/api/user/set_user', methods=['POST'])
 def set_user():
-    if request.method == 'GET':
+    if request.method == 'POST':
         user = req_get('user')
         if user is None:
             return jsonify({'status': 'user is empty'}), 401
