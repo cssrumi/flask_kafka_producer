@@ -43,8 +43,8 @@ def is_auth():
     return jsonify(response), status
 
 
-@app.route('/api/message/producer', methods=['GET', 'POST'])
-def kafka_producer():
+@app.route('/api/user/set_user', methods=['POST'])
+def set_user():
     if request.method == 'GET':
         user = req_get('user')
         if user is None:
@@ -53,7 +53,13 @@ def kafka_producer():
         if token:
             return jsonify({'token': token}), 200
         return jsonify({'status': 'username used'}), 401
-    elif request.method == 'POST':
+    else:
+        abort(400)
+
+
+@app.route('/api/message/producer', methods=['POST'])
+def kafka_producer():
+    if request.method == 'POST':
         user = req_get('user')
         if user is None:
             return jsonify({'status': 'user is empty'}), 401
