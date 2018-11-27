@@ -15,9 +15,17 @@ def req_get(name):
     return param
 
 
-@app.route('/api/user/is_exist', methods=['GET'])
-def is_exist():
-    user = req_get('user')
+@app.route('/api/check_server', methods=['GET'])
+def check_server():
+    if request.method == 'GET':
+        return 200
+    else:
+        abort(400)
+
+
+@app.route('/api/user/is_exist/<username>', methods=['GET'])
+def is_exist(username):
+    user = username
     if user is None:
         return jsonify({'status': 'user field is empty'}), 200
     result = auth.is_user_exist(user)
@@ -26,9 +34,9 @@ def is_exist():
     return jsonify({'status': 'user not exist'}), 200
 
 
-@app.route('/api/user/is_auth', methods=['GET'])
-def is_auth():
-    user = req_get('user')
+@app.route('/api/user/is_auth/<username>', methods=['GET'])
+def is_auth(username):
+    user = username
     if user is None:
         return jsonify({'status': 'user is empty'}), 401
     verify_token = req_get('token')
