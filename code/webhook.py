@@ -18,7 +18,7 @@ def req_get(name):
 @app.route('/api/check_server', methods=['GET'])
 def check_server():
     if request.method == 'GET':
-        return 200
+        return jsonify({'status': 'running'}), 200
     else:
         abort(400)
 
